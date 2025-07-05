@@ -11,4 +11,5 @@ public interface AccountService {
     AccountDto updateAccount(AccountDto accountDto);
     AccountDto getAccountById(Long accountId);
     AccountDto deleteAccount(Long accountId);
+    AccountDto depositMoney(Long id, double amount);
 }
