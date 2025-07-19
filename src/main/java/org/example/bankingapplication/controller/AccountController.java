@@ -73,6 +73,7 @@ public class AccountController {
         return new ResponseEntity<>("Account deleted", HttpStatus.OK);
     }
 
+    //todo transfer method
     @PutMapping("/{accountId}/transfer")
     public ResponseEntity<String>transferMoney(
             @PathVariable Long accountId,
@@ -84,7 +85,6 @@ public class AccountController {
 
 
     }
-
 
 
 }
