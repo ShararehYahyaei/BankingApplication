@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -65,7 +66,7 @@ public class AccountServiceImpl implements AccountService {
     public AccountDto withdrawMoney(Long id, double amount) {
         Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Account does not exist"));
-        if (account.getBalance() < amount ) {
+        if (account.getBalance() < amount) {
             throw new RuntimeException("Insufficient balance");
         }
         if (account.getBalance() - amount < 0) {
@@ -84,11 +85,10 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<AccountDto> getAllAccounts() {
         List<Account> allAccounts = accountRepository.findAll();
-        List<AccountDto> accountDtos = new ArrayList<>();
-        for (Account account : allAccounts) {
-            accountDtos.add(accountMapper.mapToAccountDto(account));
-        }
-        return accountDtos;
+        List<AccountDto> allAccountDtos = allAccounts.stream()
+                .map(account -> accountMapper.mapToAccountDto(account))
+                .collect(Collectors.toList());
+        return allAccountDtos;
     }
 
 }
