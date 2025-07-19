@@ -7,8 +7,8 @@ import org.example.bankingapplication.repository.AccountRepository;
 import org.example.bankingapplication.service.AccountService;
 import org.springframework.stereotype.Service;
 
-import javax.security.auth.login.AccountNotFoundException;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -46,8 +46,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountDto deleteAccount(Long accountId) {
         AccountDto accountById = accountRepository.getAccountById(accountId);
-         accountRepository.deleteById(accountId);
-         return accountById;
+        accountRepository.deleteById(accountId);
+        return accountById;
     }
 
     @Override
@@ -60,5 +60,24 @@ public class AccountServiceImpl implements AccountService {
 
     }
 
+    @Override
+    public AccountDto withdrawMoney(Long id, double amount) {
+        return null;
+    }
+
+    @Override
+    public AccountDto transferMoney(Long id, double amount, AccountDto accountDto) {
+        return null;
+    }
+
+    @Override
+    public List<AccountDto> getAllAccounts() {
+        List<Account> allAccounts = accountRepository.findAll();
+        List<AccountDto> accountDtos = new ArrayList<>();
+        for (Account account : allAccounts) {
+            accountDtos.add(accountMapper.mapToAccountDto(account));
+        }
+        return accountDtos;
+    }
 
 }

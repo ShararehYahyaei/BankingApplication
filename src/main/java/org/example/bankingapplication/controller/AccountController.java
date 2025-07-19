@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -45,6 +46,14 @@ public class AccountController {
         AccountDto accountDto = accountService.depositMoney(accountId, amount);
         return new ResponseEntity<>(accountDto, HttpStatus.OK);
 
+    }
+
+    //todo get All Accounts
+
+    @GetMapping("/getAllAccounts")
+    public ResponseEntity<List<AccountDto>> getAllAccounts() {
+        List<AccountDto> allAccounts = accountService.getAllAccounts();
+        return new ResponseEntity<>(allAccounts, HttpStatus.OK);
     }
 
 
