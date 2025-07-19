@@ -39,7 +39,7 @@ public class AccountController {
     }
 
     //todo deposit method
-    @PutMapping("/{accountId}/{deposit}")
+    @PutMapping("/{accountId}/deposit")
     public ResponseEntity<AccountDto> deposit(@PathVariable Long accountId,
                                               @RequestBody Map<String, Double> request) {
         Double amount = request.get("amount");
@@ -56,5 +56,17 @@ public class AccountController {
         return new ResponseEntity<>(allAccounts, HttpStatus.OK);
     }
 
+    //todo withdraw method
+    @PutMapping("/{accountId}/withdraw")
+    public ResponseEntity<AccountDto> withdraw(@PathVariable Long accountId,
+            @RequestBody Map<String, Double> request) {
+        Double amount = request.get("amount");
+        AccountDto accountDto = accountService.withdrawMoney(accountId, amount);
+        return new ResponseEntity<>(accountDto, HttpStatus.OK);
+    }
+
 
 }
+
+
+
