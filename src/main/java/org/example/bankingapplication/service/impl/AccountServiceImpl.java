@@ -7,7 +7,6 @@ import org.example.bankingapplication.repository.AccountRepository;
 import org.example.bankingapplication.service.AccountService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,10 +44,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountDto deleteAccount(Long accountId) {
-        AccountDto accountById = accountRepository.getAccountById(accountId);
+    public void deleteAccount(Long accountId) {
+        accountRepository.findById(accountId)
+                .orElseThrow(() -> new RuntimeException("Account does not exist"));
         accountRepository.deleteById(accountId);
-        return accountById;
+
     }
 
     @Override
@@ -90,5 +90,6 @@ public class AccountServiceImpl implements AccountService {
                 .collect(Collectors.toList());
         return allAccountDtos;
     }
+
 
 }

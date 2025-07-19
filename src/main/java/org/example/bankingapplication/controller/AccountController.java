@@ -59,12 +59,18 @@ public class AccountController {
     //todo withdraw method
     @PutMapping("/{accountId}/withdraw")
     public ResponseEntity<AccountDto> withdraw(@PathVariable Long accountId,
-            @RequestBody Map<String, Double> request) {
+                                               @RequestBody Map<String, Double> request) {
         Double amount = request.get("amount");
         AccountDto accountDto = accountService.withdrawMoney(accountId, amount);
         return new ResponseEntity<>(accountDto, HttpStatus.OK);
     }
 
+     //todo delete an accountId
+    @DeleteMapping("/deleteAccount/{accountId}")
+    public ResponseEntity<String> deleteAccount(@PathVariable Long accountId) {
+        accountService.deleteAccount(accountId);
+        return new ResponseEntity<>("Account deleted", HttpStatus.OK);
+    }
 
 }
 

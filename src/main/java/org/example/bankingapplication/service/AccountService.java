@@ -10,7 +10,7 @@ public interface AccountService {
     AccountDto createAccount(AccountDto accountDto);
     AccountDto updateAccount(AccountDto accountDto);
     AccountDto getAccountById(Long accountId);
-    AccountDto deleteAccount(Long accountId);
+    void deleteAccount(Long accountId);
     AccountDto depositMoney(Long id, double amount);
     AccountDto withdrawMoney(Long id, double amount);
     AccountDto transferMoney(Long id, double amount, AccountDto accountDto);
