@@ -1,5 +1,6 @@
 package org.example.bankingapplication.controller;
 
+import com.fasterxml.jackson.databind.node.DoubleNode;
 import org.example.bankingapplication.dto.AccountDto;
 import org.example.bankingapplication.entity.Account;
 import org.example.bankingapplication.service.AccountService;
@@ -65,12 +66,26 @@ public class AccountController {
         return new ResponseEntity<>(accountDto, HttpStatus.OK);
     }
 
-     //todo delete an accountId
+    //todo delete an accountId
     @DeleteMapping("/deleteAccount/{accountId}")
     public ResponseEntity<String> deleteAccount(@PathVariable Long accountId) {
         accountService.deleteAccount(accountId);
         return new ResponseEntity<>("Account deleted", HttpStatus.OK);
     }
+
+    @PutMapping("/{accountId}/transfer")
+    public ResponseEntity<String>transferMoney(
+            @PathVariable Long accountId,
+            @RequestParam double amount,
+            @RequestBody AccountDto targetAccountDto){
+
+       accountService.transferMoney(accountId, amount, targetAccountDto);
+       return new ResponseEntity<>("Transfer successful", HttpStatus.OK);
+
+
+    }
+
+
 
 }
 

@@ -8,7 +8,6 @@ import java.util.List;
 public interface AccountService {
 
     AccountDto createAccount(AccountDto accountDto);
-    AccountDto updateAccount(AccountDto accountDto);
     AccountDto getAccountById(Long accountId);
     void deleteAccount(Long accountId);
     AccountDto depositMoney(Long id, double amount);

@@ -29,12 +29,6 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountDto updateAccount(AccountDto accountDto) {
-        Account save = accountRepository.save(accountMapper.mapToAccount(accountDto));
-        return accountMapper.mapToAccountDto(save);
-    }
-
-    @Override
     public AccountDto getAccountById(Long accountId) {
         Account account = accountRepository
                 .findById(accountId)
@@ -79,7 +73,24 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountDto transferMoney(Long id, double amount, AccountDto accountDto) {
-        return null;
+        Account source = accountRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException(" account does not found"));
+
+        Account target = accountRepository.findById(accountDto.getId())
+                .orElseThrow(() -> new RuntimeException("Target account not found"));
+
+        if (source.getBalance() < amount) {
+            throw new RuntimeException("Insufficient funds");
+        }
+
+        source.setBalance(source.getBalance() - amount);
+        target.setBalance(target.getBalance() + amount);
+
+        accountRepository.save(source);
+        accountRepository.save(target);
+        AccountDto accountSourceFinal = accountMapper.mapToAccountDto(source);
+        return accountSourceFinal;
+
     }
 
     @Override
